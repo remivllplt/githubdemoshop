@@ -15,7 +15,7 @@ const listenToAdd = (buttons) => {
         cartLS.add({ id, name, price })
       }
       dataLayer.push({
-        event: 'addToCart',
+        event: 'add_to_cart',
         item: { id, name, price },
         location: location
       })
@@ -33,7 +33,7 @@ const cartItemsListeners = () => {
       const { id, name, price, quantity } = event.currentTarget.dataset
       cartLS.remove(id)
       dataLayer.push({
-        event: 'removeCartItem',
+        event: 'remove_from_cart',
         item: { id, name, price },
         quantity: -parseInt(quantity),
         location: 'cart',
@@ -47,7 +47,7 @@ const cartItemsListeners = () => {
       const { id, name, price } = event.currentTarget.dataset
       cartLS.quantity(id, -1)
       dataLayer.push({
-        event: 'removeOneFromCart',
+        event: 'remove_one_from_cart',
         item: { id, name, price },
         location: 'cart',
       })
@@ -92,14 +92,14 @@ const contactForm = document.getElementById('form-contact')
 if (contactForm) {
   contactForm.addEventListener('submit', (event) => {
     dataLayer.push({
-      event: 'contactFormSubmit', location: 'contact', contact: Object.fromEntries(new FormData(event.currentTarget)) })
+      event: 'contact_form_submit', location: 'contact', contact: Object.fromEntries(new FormData(event.currentTarget)) })
   })
 }
 
 const checkoutButton = document.getElementById('checkout-button')
 checkoutButton.addEventListener('click', (event) => {
   dataLayer.push({
-    event: 'goToCheckout',
+    event: 'begin_checkout',
     location: 'cart',
     cart: cartLS.list(),
     totalPrice: cartLS.total(),
